@@ -40,6 +40,10 @@ class ToDoDatabase {
     }
     return {};
   }
+
+  String? getPassword() {
+    return sharedPreferences?.getString("password");
+  }
 }
 
 class UnableToGetSharedInstanceException implements Exception {}

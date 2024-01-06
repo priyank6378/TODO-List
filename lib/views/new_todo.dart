@@ -23,7 +23,7 @@ class _AddNewTodoItemState extends State<AddNewTodoItem> {
             return Scaffold(
               // backgroundColor: const Color(0xfffef08a),
               appBar: AppBar(
-                backgroundColor: const Color(0xfffacc15),
+                backgroundColor: const Color(0xffc084fc),
                 title: Text(
                   "New Task",
                   style: GoogleFonts.poppins(),

@@ -18,7 +18,7 @@ class _ToDoListViewState extends State<ToDoListView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xfffacc15),
+        backgroundColor: const Color(0xffc084fc),
         title: Text(
           "TO-DO List",
           style: GoogleFonts.poppins(),

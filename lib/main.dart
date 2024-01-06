@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do/const/routes.dart';
+import 'package:to_do/views/authentication_view.dart';
 import 'package:to_do/views/new_todo.dart';
 import 'package:to_do/views/todo_list.dart';
 
@@ -19,10 +20,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: const AuthenticateView(),
       routes: {
-        newNoteRoute:(context) => const AddNewTodoItem(),
-        notesRoute:(context) => const ToDoListView(),
+        newNoteRoute: (context) => const AddNewTodoItem(),
+        notesRoute: (context) => const ToDoListView(),
       },
     );
   }
