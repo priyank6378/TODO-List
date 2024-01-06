@@ -9,7 +9,7 @@ flutter create .
 This will create the necessary files and folders for the project to run.
 
 ## Screenshots
-<img src='Screenshots/login_page.png' width='300' height='600'>&nbsp;&nbsp;&nbsp;&nbsp;
-<img src='Screenshots/change_password_page.png' width='300' height='600'>&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="Screenshots/tasks_page.png" width='300' height='600'>&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="Screenshots/new_task_page.png" width='300' height='600'>&nbsp;&nbsp;&nbsp;&nbsp;
+<img src='Screenshots/login_page.png' width='300' height='600'  style="border: 4px solid  black;">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src='Screenshots/change_password_page.png' width='300' height='600' style="border: 4px solid  black;">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="Screenshots/tasks_page.png" width='300' height='600'  style="border: 4px solid  black;">&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="Screenshots/new_task_page.png" width='300' height='600'  style="border: 4px solid  black;">&nbsp;&nbsp;&nbsp;&nbsp;
