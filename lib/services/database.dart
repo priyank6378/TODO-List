@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ToDoDatabase {
@@ -14,35 +16,63 @@ class ToDoDatabase {
     if (tmpSharedPreferences == null) {
       await initiate();
     }
-    tmpSharedPreferences?.setBool(todoNote, false);
+    String? todoMapString = sharedPreferences?.getString("notes");
+    todoMapString ??= "{}";
+    final todoMap = jsonDecode(todoMapString);
+    todoMap[todoNote] = false;
+    await sharedPreferences?.setString("notes", jsonEncode(todoMap));
   }
 
   void done(String todoNote) async {
-    await sharedPreferences?.setBool(todoNote, true);
+    final todoStringMap = sharedPreferences?.getString("notes");
+    if (todoStringMap != null) {
+      final todoMap = jsonDecode(todoStringMap);
+      todoMap[todoNote] = true;
+      await sharedPreferences?.setString("notes", jsonEncode(todoMap));
+    }
   }
 
   void unDone(String todoNote) async {
-    await sharedPreferences?.setBool(todoNote, false);
+    final todoStringMap = sharedPreferences?.getString("notes");
+    if (todoStringMap != null) {
+      final todoMap = jsonDecode(todoStringMap);
+      todoMap[todoNote] = false;
+      await sharedPreferences?.setString("notes", jsonEncode(todoMap));
+    }
   }
 
   void delete(String todoNote) async {
-    await sharedPreferences?.remove(todoNote);
+    final todoStringMap = sharedPreferences?.getString("notes");
+    if (todoStringMap != null) {
+      final todoMap = jsonDecode(todoStringMap);
+      todoMap.remove(todoNote);
+      await sharedPreferences?.setString("notes", jsonEncode(todoMap));
+    }
   }
 
   Map<String, bool?> getAll() {
-    final allNotes = sharedPreferences?.getKeys();
-    Map<String, bool?> todoMap = {};
-    if (allNotes != null) {
-      for (String note in allNotes) {
-        todoMap[note] = sharedPreferences?.getBool(note);
-      }
-      return todoMap;
+    final tmpSharedPreferences = sharedPreferences;
+    String? todoMapString = tmpSharedPreferences?.getString("notes");
+    print(todoMapString);
+    if (todoMapString == null) {
+      return {};
     }
-    return {};
+    final allNotes = jsonDecode(todoMapString);
+    Map<String, bool?> allNotesMap = {};
+    allNotes.forEach((key, value) {
+      if (value is bool) {
+        allNotesMap[key] = value;
+      }
+    });
+    return allNotesMap;
   }
 
   String? getPassword() {
     return sharedPreferences?.getString("password");
+  }
+
+  void setPassword(String password) async {
+    await sharedPreferences?.setString("password", password);
   }
 }
 

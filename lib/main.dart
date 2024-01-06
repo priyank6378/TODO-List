@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:to_do/const/routes.dart';
 import 'package:to_do/views/authentication_view.dart';
+import 'package:to_do/views/change_password_view.dart';
 import 'package:to_do/views/new_todo.dart';
 import 'package:to_do/views/todo_list.dart';
 
@@ -24,6 +25,8 @@ class MyApp extends StatelessWidget {
       routes: {
         newNoteRoute: (context) => const AddNewTodoItem(),
         notesRoute: (context) => const ToDoListView(),
+        authenticateRoute: (context) => const AuthenticateView(),
+        changePasswordRoute: (context) => const ChangePasswordView(),
       },
     );
   }

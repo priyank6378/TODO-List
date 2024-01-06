@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:path/path.dart';
 import 'package:to_do/const/routes.dart';
 import 'package:to_do/services/database.dart';
 
-class AuthenticateView extends StatefulWidget {
-  const AuthenticateView({super.key});
+class ChangePasswordView extends StatefulWidget {
+  const ChangePasswordView({super.key});
 
   @override
-  State<AuthenticateView> createState() => _AuthenticateViewState();
+  State<ChangePasswordView> createState() => _ChangePasswordViewState();
 }
 
-class _AuthenticateViewState extends State<AuthenticateView> {
+class _ChangePasswordViewState extends State<ChangePasswordView> {
   final database = ToDoDatabase();
-  String? _password = "root";
+  String? newPassword;
+  String? currentPassword;
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _oldPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +24,10 @@ class _AuthenticateViewState extends State<AuthenticateView> {
       future: database.initiate(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          _password = database.getPassword();
+          currentPassword = database.getPassword();
           return Scaffold(
             appBar: AppBar(
-              title: const Text("Authenticate"),
+              title: const Text("Change Password"),
               centerTitle: true,
             ),
             body: Center(
@@ -34,10 +37,25 @@ class _AuthenticateViewState extends State<AuthenticateView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Enter Password",
+                      "Update Password",
                       style: GoogleFonts.poppins(
                         fontSize: 25,
                         fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(
+                      width: 250,
+                      child: TextField(
+                        cursorWidth: 10,
+                        obscureText: true,
+                        controller: _oldPasswordController,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Current Password',
+                        ),
                       ),
                     ),
                     const SizedBox(
@@ -60,8 +78,13 @@ class _AuthenticateViewState extends State<AuthenticateView> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        if (_passwordController.text == _password) {
-                          Navigator.of(context).pushNamed(notesRoute);
+                        currentPassword = database.getPassword();
+                        final oldPasswordText = _oldPasswordController.text;
+                        final newPasswordText = _passwordController.text;
+                        if (oldPasswordText == currentPassword) {
+                          database.setPassword(newPasswordText);
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              authenticateRoute, (route) => false);
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
@@ -70,14 +93,7 @@ class _AuthenticateViewState extends State<AuthenticateView> {
                           );
                         }
                       },
-                      child: const Text("Login"),
-                    ),
-                    const SizedBox(height: 10),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(changePasswordRoute);
-                      },
-                      child: const Text("Update Password"),
+                      child: const Text("Change Password"),
                     ),
                   ],
                 ),

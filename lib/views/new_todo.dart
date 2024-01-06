@@ -34,6 +34,8 @@ class _AddNewTodoItemState extends State<AddNewTodoItem> {
                       final note = textController.text;
                       if (note.isNotEmpty) {
                         database.add(note);
+                        print("Added new note here: ");
+                        print(database.sharedPreferences?.getString("notes"));
                       }
                       Navigator.of(context).pushNamedAndRemoveUntil(
                           notesRoute, (route) => false);
