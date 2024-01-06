@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:to_do/const/routes.dart';
 import 'package:to_do/services/database.dart';
 
@@ -20,8 +21,13 @@ class _AddNewTodoItemState extends State<AddNewTodoItem> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return Scaffold(
+              // backgroundColor: const Color(0xfffef08a),
               appBar: AppBar(
-                title: const Text("New Task"),
+                backgroundColor: const Color(0xfffacc15),
+                title: Text(
+                  "New Task",
+                  style: GoogleFonts.poppins(),
+                ),
                 actions: [
                   IconButton(
                     onPressed: () {
@@ -38,7 +44,7 @@ class _AddNewTodoItemState extends State<AddNewTodoItem> {
               ),
               body: TextField(
                 controller: textController,
-                decoration: const InputDecoration(  
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: "Write your TODO item here...",
                 ),

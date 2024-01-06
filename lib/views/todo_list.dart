@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:to_do/const/routes.dart';
 import 'package:to_do/services/database.dart';
 
@@ -18,18 +19,20 @@ class _ToDoListViewState extends State<ToDoListView> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xfffacc15),
-        title: const Text("TO-DO List"),
+        title: Text(
+          "TO-DO List",
+          style: GoogleFonts.poppins(),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: () {
-              Navigator.of(context)
-                  .pushNamedAndRemoveUntil(newNoteRoute, (route) => false);
+              Navigator.of(context).pushNamed(newNoteRoute);
             },
           )
         ],
       ),
-      backgroundColor: const Color(0xfffef08a),
+      // backgroundColor: const Color(0xfffef08a),
       body: FutureBuilder(
         future: database.initiate(),
         builder: (context, snapshot) {
@@ -46,7 +49,10 @@ class _ToDoListViewState extends State<ToDoListView> {
                       // width: 100,
                       alignment: Alignment.centerLeft,
                       decoration: BoxDecoration(
-                        color: const Color(0xfffacc15),
+                        // color: const Color(0xfffacc15),
+                        border: Border.all(
+                          width: 4,
+                        ),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       padding: const EdgeInsets.all(8),
@@ -78,8 +84,7 @@ class _ToDoListViewState extends State<ToDoListView> {
                               softWrap: false,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontFamily: 'roboto',
+                              style: GoogleFonts.poppins(
                                 fontSize: 20,
                                 decoration: (todoNotes[indexedNote] ?? false)
                                     ? TextDecoration.lineThrough
@@ -91,10 +96,21 @@ class _ToDoListViewState extends State<ToDoListView> {
                       ));
                 },
                 separatorBuilder: (BuildContext context, int index) =>
-                    const Divider(),
+                    const Divider(
+                  color: Colors.white,
+                ),
               );
             } else {
-              return const Text("empty");
+              return Container(
+                alignment: Alignment.center,
+                child: Text(
+                  "No Tasks!",
+                  style: GoogleFonts.poppins(
+                    fontSize: 27,
+                    fontWeight: FontWeight.w200,
+                  ),
+                ),
+              );
             }
           } else {
             return const CircularProgressIndicator();
