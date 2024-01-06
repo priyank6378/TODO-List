@@ -45,7 +45,7 @@ class _ToDoListViewState extends State<ToDoListView> {
                 itemBuilder: (context, index) {
                   final indexedNote = todoNotes.keys.toList()[index];
                   return Container(
-                      height: 100,
+                      height: 80,
                       // width: 100,
                       alignment: Alignment.centerLeft,
                       decoration: BoxDecoration(
@@ -85,7 +85,7 @@ class _ToDoListViewState extends State<ToDoListView> {
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.poppins(
-                                fontSize: 20,
+                                fontSize: 15,
                                 decoration: (todoNotes[indexedNote] ?? false)
                                     ? TextDecoration.lineThrough
                                     : TextDecoration.none,
