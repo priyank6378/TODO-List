@@ -61,7 +61,8 @@ class _AuthenticateViewState extends State<AuthenticateView> {
                     ElevatedButton(
                       onPressed: () {
                         if (_passwordController.text == _password) {
-                          Navigator.of(context).pushNamed(notesRoute);
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              notesRoute, (route) => false);
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(

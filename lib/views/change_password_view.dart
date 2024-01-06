@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:path/path.dart';
 import 'package:to_do/const/routes.dart';
 import 'package:to_do/services/database.dart';
 
@@ -84,7 +83,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                         if (oldPasswordText == currentPassword) {
                           database.setPassword(newPasswordText);
                           Navigator.of(context).pushNamedAndRemoveUntil(
-                              authenticateRoute, (route) => false);
+                              notesRoute, (route) => false);
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(

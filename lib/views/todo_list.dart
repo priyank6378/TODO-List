@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:to_do/const/routes.dart';
 import 'package:to_do/services/database.dart';
+
+enum CustomPopUpMenuActions {
+  changePassword,
+  exit,
+}
 
 class ToDoListView extends StatefulWidget {
   const ToDoListView({super.key});
@@ -29,7 +35,30 @@ class _ToDoListViewState extends State<ToDoListView> {
             onPressed: () {
               Navigator.of(context).pushNamed(newNoteRoute);
             },
-          )
+          ),
+          PopupMenuButton<CustomPopUpMenuActions>(
+            onSelected: (value) {
+              if (value == CustomPopUpMenuActions.changePassword) {
+                Navigator.of(context).pushNamed(changePasswordRoute);
+              }
+              if (value == CustomPopUpMenuActions.exit) {
+                SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+              }
+            },
+            
+            itemBuilder: (context) {
+              return [
+                const PopupMenuItem<CustomPopUpMenuActions>(
+                  value: CustomPopUpMenuActions.changePassword,
+                  child: Text("Change Password"),
+                ),
+                const PopupMenuItem<CustomPopUpMenuActions>(
+                  value: CustomPopUpMenuActions.exit,
+                  child: Text("Exit"),
+                ),
+              ];
+            },
+          ),
         ],
       ),
       // backgroundColor: const Color(0xfffef08a),

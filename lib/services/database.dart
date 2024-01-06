@@ -68,7 +68,12 @@ class ToDoDatabase {
   }
 
   String? getPassword() {
-    return sharedPreferences?.getString("password");
+    final pass = sharedPreferences?.getString("password");
+    if (pass == null) {
+      setPassword("");
+      return "";
+    }
+    return pass;
   }
 
   void setPassword(String password) async {
