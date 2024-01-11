@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:to_do/const/routes.dart';
 import 'package:to_do/services/database.dart';
+import 'package:to_do/views/todo_list.dart';
 
 class AuthenticateView extends StatefulWidget {
   const AuthenticateView({super.key});
@@ -22,6 +23,9 @@ class _AuthenticateViewState extends State<AuthenticateView> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           _password = database.getPassword();
+          if (_password == '') {
+            return const ToDoListView();
+          }
           return Scaffold(
             appBar: AppBar(
               title: const Text("Authenticate"),

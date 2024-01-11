@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:path/path.dart';
 import 'package:to_do/const/routes.dart';
 import 'package:to_do/services/database.dart';
 
@@ -30,12 +31,6 @@ class _ToDoListViewState extends State<ToDoListView> {
           style: GoogleFonts.poppins(),
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () {
-              Navigator.of(context).pushNamed(newNoteRoute);
-            },
-          ),
           PopupMenuButton<CustomPopUpMenuActions>(
             onSelected: (value) {
               if (value == CustomPopUpMenuActions.changePassword) {
@@ -45,7 +40,6 @@ class _ToDoListViewState extends State<ToDoListView> {
                 SystemChannels.platform.invokeMethod('SystemNavigator.pop');
               }
             },
-            
             itemBuilder: (context) {
               return [
                 const PopupMenuItem<CustomPopUpMenuActions>(
@@ -62,6 +56,15 @@ class _ToDoListViewState extends State<ToDoListView> {
         ],
       ),
       // backgroundColor: const Color(0xfffef08a),
+      floatingActionButton: IconButton(
+        icon: const Icon(
+          Icons.add,
+          size: 40,
+        ),
+        onPressed: () {
+          Navigator.of(context).pushNamed(newNoteRoute);
+        },
+      ),
       body: FutureBuilder(
         future: database.initiate(),
         builder: (context, snapshot) {
